@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  #volumes:以降の4行がVolumeの指定です。
+  volumes:
+  - name: cmvolume
+    configMap:
+      name: sample-cmvolume
+  containers:
+  - image: nginx
+    name: nginx
+    resources: {}
+    #volumeMounts:以降の3行がマウントするパスの設定です。
+    volumeMounts:
+    - name: cmvolume
+      mountPath: /configmap
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
